@@ -1,21 +1,15 @@
 import System.IO
+import Data.List.Split
 
-totalArea :: (Num a, Ord a) => a -> a -> a -> a
-totalArea l w h = minimum areas + sum areas
-  where areas = [product [x, y] | (x,y) <- [(l,w),(w,h),(l,h)] ]
-
---main = print $ totalArea 2 2 2
-
-splitter :: Char -> [Char] -> [[Char]]
-splitter c [] = []
-splitter c [a] = [[a]]
-splitter c (a:r) =
-  if c == a
-    then [] : (s:ts)
-    else (a:s) : ts
-  where s:ts = splitter c r
+wrappingPaper line = minimum areas + 2 * sum areas
+  where
+    areas = [product [x, y] | (x,y) <- [(l,w),(w,h),(l,h)] ]
+    l:w:h:_ = map read line :: [Int]
 
 main = do
   withFile "2.in" ReadMode (\handle -> do
     contents <- hGetContents handle
-    print $ splitter '\n' contents)
+    print $ sum (map wrappingPaper [splitOn "x" line | line <- lines contents])
+    )
+
+-- 1598415

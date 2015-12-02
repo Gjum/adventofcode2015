@@ -1,15 +1,25 @@
 import System.IO
 import Data.List.Split
+import Data.List
 
-wrappingPaper line = minimum areas + 2 * sum areas
+wrappingPaper line = wrap + slack
   where
-    areas = [product [x, y] | (x,y) <- [(l,w),(w,h),(l,h)] ]
-    l:w:h:_ = map read line :: [Int]
+    wrap = 2 * sum areas
+    slack = minimum areas
+    areas = [ x*y | (x,y) <- [(w,h),(h,l),(l,w)] ]
+    w:h:l:_ = line
+
+ribbonLength line = wrap + bow
+  where
+    wrap = w+w + h+h
+    bow = w*h*l
+    w:h:l:_ = sort line
+
+presentSizes contents = [map read (splitOn "x" line) :: [Int] | line <- lines contents]
 
 main = do
   withFile "2.in" ReadMode (\handle -> do
     contents <- hGetContents handle
-    print $ sum (map wrappingPaper [splitOn "x" line | line <- lines contents])
+    print $ sum (map wrappingPaper (presentSizes contents)) -- 1598415
+    print $ sum (map ribbonLength (presentSizes contents)) -- 3812909
     )
-
--- 1598415

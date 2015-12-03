@@ -12,11 +12,11 @@ func main() {
 	var floor int
 	for _, char := range content {
 		if string(char) == "(" {
-			floor += 1
+			floor++
 		}
 
 		if string(char) == ")" {
-			floor -= 1
+			floor--
 		}
 	}
 

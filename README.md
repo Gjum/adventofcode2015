@@ -1,2 +1,3 @@
-The results of me learning Haskell with [AdventOfCode](http://adventofcode.com).
+Learning Haskell with [Advent of Code](http://adventofcode.com).
 
+Run a solution with `cd xx-xx` then `runhaskell xx.hs`.

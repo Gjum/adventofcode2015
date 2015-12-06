@@ -15,11 +15,9 @@ ribbonLength line = wrap + bow
     bow = w*h*l
     w:h:l:_ = sort line
 
-presentSizes contents = [map read (splitOn "x" line) :: [Int] | line <- lines contents]
+presentSizes contents = [map read (splitOn "x" line) :: [Int] | line <- contents]
 
 main = do
-  withFile "2.in" ReadMode (\handle -> do
-    contents <- hGetContents handle
-    print $ sum (map wrappingPaper (presentSizes contents)) -- 1598415
-    print $ sum (map ribbonLength (presentSizes contents)) -- 3812909
-    )
+  contents <- lines <$> readFile "02.in"
+  print $ sum (map wrappingPaper (presentSizes contents)) -- 1598415
+  print $ sum (map ribbonLength (presentSizes contents)) -- 3812909

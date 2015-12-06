@@ -20,8 +20,6 @@ part2 (dira:dirb:newdata) oldposa oldposb set = part2 newdata newposa newposb ne
     newset = insert newposa (insert newposb set)
 
 main = do
-  withFile "3.in" ReadMode (\handle -> do
-    contents <- hGetContents handle
-    print $ size $ part1 contents (0,0) (singleton (0,0)) -- 2572
-    print $ size $ part2 contents (0,0) (0,0) (singleton (0,0)) -- 2631
-    )
+  contents <- readFile "03.in"
+  print $ size $ part1 contents (0,0) (singleton (0,0)) -- 2572
+  print $ size $ part2 contents (0,0) (0,0) (singleton (0,0)) -- 2631

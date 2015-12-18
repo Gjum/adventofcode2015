@@ -1,5 +1,3 @@
-import System.IO
-import Data.List.Split
 import Data.Map (Map, (!), insert)
 import qualified Data.Map as Map
 import Data.Int
@@ -24,13 +22,14 @@ main = do
   --print $ [(x, eval instr (x:[])) | x <- "defghixy"]
 
   let instr = Map.fromList $ map indexify ls
-  print $ fst $ eval instr "a" -- 16076
+  let a = fst $ eval instr "a" -- 16076
+  print $ a
 
-  let instr2 = insert "b" ["16076"] $ Map.fromList $ map indexify ls
+  let instr2 = insert "b" [show a] $ Map.fromList $ map indexify ls
   print $ fst $ eval instr2 "a" -- 2797
 
 indexify line = (out, reverse r)
-  where out:"->":r = reverse $ splitOn " " line
+  where out:"->":r = reverse $ words line
 
 -- cable name or number to number, may lookup cable name
 eval :: Map [Char] [[Char]] -> [Char] -> (Int16, Map [Char] [[Char]])
